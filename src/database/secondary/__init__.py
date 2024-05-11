@@ -1,5 +1,5 @@
 __all__ = (
-    "ProductsReview"
+    "products_review"
 )
 
-from .product_review import ProductsReview
+from .product_review import products_review

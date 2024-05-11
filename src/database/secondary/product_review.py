@@ -1,13 +1,18 @@
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import ForeignKey, Table, Column
 from src.database import Base
 
 
-class ProductsReview(Base):
-    __tablename__ = "review_product"
-    product_id: Mapped[int] = mapped_column(
-        ForeignKey("products.id", ondelete="CASCADE"), primary_key=True
+products_review = Table(
+    "products_review",
+    Base.metadata,
+    Column(
+        "product_id",
+        ForeignKey("products.id", ondelete="CASCADE"),
+        primary_key=True
+    ),
+    Column(
+        "review_id",
+        ForeignKey("reviews.id", ondelete="CASCADE"),
+        primary_key=True
     )
-    review_id: Mapped[int] = mapped_column(
-        ForeignKey("reviews.id", ondelete="CASCADE"), primary_key=True
-    )
+)
