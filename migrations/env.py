@@ -5,7 +5,7 @@ from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from src.users import UserORM
-from src.products import ProductsORM
+from src.products import ProductsORM, ReviewsORM
 from alembic import context
 
 # this is the Alembic Config object, which provides

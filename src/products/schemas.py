@@ -1,3 +1,5 @@
+from enum import Enum
+
 from pydantic import BaseModel
 from typing import Optional
 
@@ -17,3 +19,10 @@ class ProductsRead(ProductCreate):
 
 class ProductsEdit(ProductCreate):
     pass
+
+
+class ReviewEnum(Enum):
+    NONE = "NONE"
+    BAD = "BAD"
+    NOT_VERY = "NOT_VERY"
+    GOOD = "GOOD"
