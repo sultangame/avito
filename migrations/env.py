@@ -4,8 +4,8 @@ from src.database import Model, async_url
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
-from src.users import UserORM
-from src.products import ProductsORM, ReviewsORM
+from src.products import ProductsORM
+from src.review import ReviewORM
 from src.database.secondary import products_review
 from alembic import context
 

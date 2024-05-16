@@ -1,7 +1,11 @@
-from enum import Enum
-
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
+from src.review.schemas import ReviewEnum
+
+
+class ReviewRel(BaseModel):
+    description: Optional[str] = None
+    mark: Optional[ReviewEnum] = None
 
 
 class ProductCreate(BaseModel):
@@ -12,6 +16,7 @@ class ProductCreate(BaseModel):
 
 class ProductsRead(ProductCreate):
     id: int
+    reviews: Optional[List[ReviewRel]]
 
     class Config:
         from_attributes = True
@@ -19,10 +24,3 @@ class ProductsRead(ProductCreate):
 
 class ProductsEdit(ProductCreate):
     pass
-
-
-class ReviewEnum(Enum):
-    NONE = "NONE"
-    BAD = "BAD"
-    NOT_VERY = "NOT_VERY"
-    GOOD = "GOOD"

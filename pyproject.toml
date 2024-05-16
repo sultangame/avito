@@ -1,21 +1,21 @@
 [tool.poetry]
-name = "fastapi1"
+name = "avito"
 version = "0.0.1"
 description = ""
 authors = ["Your Name <you@example.com>"]
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 fastapi = "^0.111.0"
 sqlalchemy = "^2.0.30"
 alembic = "^1.13.1"
+aiofiles = "^23.2.1"
+uvicorn = "^0.29.0"
 aiosqlite = "^0.20.0"
-python-dotenv = "^1.0.1"
-fastapi-users = {extras = ["sqlalchemy"], version = "^13.0.0"}
-pydantic-extra-types = "^2.7.0"
-pydantic = {extras = ["email"], version = "^2.7.1"}
 black = "^24.4.2"
+pydantic-extra-types = "^2.7.0"
 phonenumbers = "^8.13.36"
 
 
