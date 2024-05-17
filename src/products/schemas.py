@@ -16,7 +16,7 @@ class ProductCreate(BaseModel):
 
 class ProductsRead(ProductCreate):
     id: int
-    reviews: Optional[List[ReviewRel]]
+    reviews: Optional[List[ReviewRel]] = None
 
     class Config:
         from_attributes = True

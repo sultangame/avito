@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from typing import Annotated
 from src.service import BaseService
-from .repository import product_service
+from .crud import product_service
 from . import schemas
+from .models import ProductsORM
 
 
 router = APIRouter(
@@ -18,7 +19,7 @@ router = APIRouter(
 async def get_all_products(
         service: Annotated[BaseService, Depends(product_service)]
 ):
-    answer = await service.find_all()
+    answer = await service.find_all(selectin=ProductsORM.reviews)
     return answer
 
 
@@ -30,19 +31,21 @@ async def get_one_product(
         pk: int,
         service: Annotated[BaseService, Depends(product_service)]
 ):
-    answer = await service.find_one(pk=pk)
+    answer = await service.find_one(pk=pk, selectin=ProductsORM.reviews)
     return answer
 
 
 @router.post(
     "/add/new/product/",
-    response_model=schemas.ProductsRead
+    response_model=schemas.ProductCreate,
+    status_code=status.HTTP_201_CREATED
 )
 async def add_new_product(
         model: schemas.ProductCreate,
         service: Annotated[BaseService, Depends(product_service)]
 ):
-    answer = await service.add_one(data=model.model_dump())
+    product = ProductsORM(**model.model_dump())
+    answer = await service.add_one(data=product)
     return answer
 
 
@@ -64,5 +67,5 @@ async def delete_one_product(
         pk: int,
         service: Annotated[BaseService, Depends(product_service)]
 ):
-    answer = await service.delete_one(pk=pk)
+    answer = await service.delete_one(pk=pk, selectin=ProductsORM.reviews)
     return answer

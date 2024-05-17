@@ -1,3 +1,4 @@
+from sqlalchemy.orm import selectinload
 from abc import ABC, abstractmethod
 from src.database import async_session_maker
 from sqlalchemy import select, update, delete
@@ -28,19 +29,23 @@ class AbstractRepository(ABC):
 class SQLAlchemyRepository(AbstractRepository):
     model = None
 
-    async def find_all(self):
+    async def find_all(self, selectin):
         async with async_session_maker() as session:
-            stmt = select(self.model).order_by(self.model.id)
+            stmt = select(self.model).order_by(self.model.id).options(
+                selectinload(selectin)
+            )
             result = await session.execute(stmt)
             return result.scalars().all()
 
-    async def find_one(self, pk: int):
+    async def find_one(self, pk: int, selectin):
         async with async_session_maker() as session:
-            stmt = select(self.model).where(self.model.id == pk)
+            stmt = select(self.model).where(self.model.id == pk).options(
+                selectinload(selectin)
+            )
             result = await session.execute(stmt)
             return result.scalar()
 
-    async def add_one(self, data: dict):
+    async def add_one(self, data):
         async with async_session_maker() as session:
             session.add(data)
             await session.commit()

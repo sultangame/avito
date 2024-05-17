@@ -6,7 +6,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from src.products import ProductsORM
 from src.review import ReviewORM
-from src.database.secondary import products_review
+from src.database.secondary import products_review, orders_products
+from src.order import OrderORM
 from alembic import context
 
 # this is the Alembic Config object, which provides

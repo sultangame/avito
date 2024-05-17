@@ -1,3 +1,5 @@
+from typing import Optional, List
+
 from pydantic import BaseModel
 from enum import Enum
 
@@ -9,5 +11,18 @@ class ReviewEnum(Enum):
     GOOD: str = "GOOD"
 
 
+class ProductRel(BaseModel):
+    id: int
+    title: Optional[str] = None
+    description: Optional[str] = None
+    price: Optional[int] = None
+
+
 class ReviewAdd(BaseModel):
-    review: str
+    description: str
+    mark: Optional[ReviewEnum] = None
+
+
+class ReviewRead(ReviewAdd):
+    id: int
+    product: Optional[List["ProductRel"]] = None
